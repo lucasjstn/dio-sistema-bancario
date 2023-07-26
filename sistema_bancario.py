@@ -18,6 +18,8 @@ Escolha uma opção:
 
 ---------------------------------
 """
+def formataNumero(numero):
+    return f"R${numero:.2f}"
 
 while opcao != 0:
     if saques > LIMITE_SAQUES:
@@ -28,14 +30,13 @@ while opcao != 0:
 
     match opcao:
         case 1:
+            print(f"Seu saldo é de: {formataNumero(saldo)}")
             break
         case 2:
             break
         case 3:
             break
         case 4:
-            break
-        case 0:
             break
         case _:
             print("Opção inválida.")
