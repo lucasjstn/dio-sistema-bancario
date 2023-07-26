@@ -2,6 +2,7 @@ saldo = 500
 saques = 1
 LIMITE_SAQUES = 3
 LIMITE_SAQUE_MAXIMO = 500
+extrato = ""
 
 opcao = -1
 
@@ -24,6 +25,9 @@ def formataNumero(numero):
 def depositar(valor, saldo):
     return saldo + valor
 
+def sacar(valor, saldo):
+    return saldo - valor
+
 
 while opcao != 0:
     if saques > LIMITE_SAQUES:
@@ -35,15 +39,32 @@ while opcao != 0:
     match opcao:
         case 1:
             print(f"Seu saldo é de: {formataNumero(saldo)}")
-            break
+            continue 
         case 2:
             valor = float(input(f"Insira o valor a ser depositado:\n"))
             saldo = depositar(valor, saldo)
             print(f"Seu novo saldo é de: {formataNumero(saldo)}")
+            extrato = f"{extrato}\n Depósito de {formataNumero(valor)}, saldo {formataNumero(saldo)}"
             continue 
         case 3:
-            break
+            if saldo <= 0:
+                print(f"Você não pode efetuar nenhum saque. Saldo insuficiente.")
+                continue 
+            valor = float(input(f"Insira o valor a ser sacado:\n"))
+            
+            if valor > saldo:
+                print(f"Valor não disponível na sua conta.")
+                print(f"Seu saldo é de: {formataNumero(saldo)}")
+                continue
+
+            saldo = sacar(valor, saldo)
+            print(f"Seu novo saldo é de: {formataNumero(saldo)}")
+            print(f"Você pode efetuar mais {LIMITE_SAQUES - saques} saque(s)")
+            saques += 1
+            continue 
         case 4:
+            break
+        case 0:
             break
         case _:
             print("Opção inválida.")
