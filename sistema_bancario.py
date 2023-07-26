@@ -21,6 +21,10 @@ Escolha uma opção:
 def formataNumero(numero):
     return f"R${numero:.2f}"
 
+def depositar(valor, saldo):
+    return saldo + valor
+
+
 while opcao != 0:
     if saques > LIMITE_SAQUES:
        break 
@@ -33,7 +37,10 @@ while opcao != 0:
             print(f"Seu saldo é de: {formataNumero(saldo)}")
             break
         case 2:
-            break
+            valor = float(input(f"Insira o valor a ser depositado:\n"))
+            saldo = depositar(valor, saldo)
+            print(f"Seu novo saldo é de: {formataNumero(saldo)}")
+            continue 
         case 3:
             break
         case 4:
