@@ -41,11 +41,15 @@ while opcao != 0:
             print(f"Seu saldo é de: {formataNumero(saldo)}")
             continue 
         case 2:
-            valor = float(input(f"Insira o valor a ser depositado:\n"))
-            saldo = depositar(valor, saldo)
-            print(f"Seu novo saldo é de: {formataNumero(saldo)}")
-            extrato = f"{extrato}\n Depósito de {formataNumero(valor)}, saldo {formataNumero(saldo)}"
-            continue 
+            try:
+                valor = float(input(f"Insira o valor a ser depositado:\n"))
+                saldo = depositar(valor, saldo)
+                print(f"Seu novo saldo é de: {formataNumero(saldo)}")
+                extrato = f"{extrato}\n Depósito de {formataNumero(valor)}, saldo {formataNumero(saldo)}"
+                continue 
+            except ValueError as Error:
+                print("Valor inválido, apenas números permitidos, insira valor decimal com pontos.")
+                continue
         case 3:
             if saldo <= 0:
                 print(f"Você não pode efetuar nenhum saque. Saldo insuficiente.")
@@ -60,10 +64,12 @@ while opcao != 0:
             saldo = sacar(valor, saldo)
             print(f"Seu novo saldo é de: {formataNumero(saldo)}")
             print(f"Você pode efetuar mais {LIMITE_SAQUES - saques} saque(s)")
+            extrato = f"{extrato}\n Saque de {formataNumero(valor)}, saldo {formataNumero(saldo)}"
             saques += 1
             continue 
         case 4:
-            break
+            print(f"{extrato}")
+            continue
         case 0:
             break
         case _:
